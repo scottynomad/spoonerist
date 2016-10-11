@@ -1,1 +1,1 @@
-web: gunicorn --log-file=- spoonerist:api
+web: gunicorn --log-file=- spoonerist:app
