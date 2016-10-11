@@ -19,8 +19,6 @@ class SpoonerismPairs(Resource):
 api.add_resource(SpoonerismPairs, '/<string:word>/pairs')
 
 
-before continuing:
-
 @app.route('/.well-known/acme-challenge/0LpcKiPyeG3ScFONl3gownnvTUZh1ctubzTVaqreyMc',
            methods=['GET'])
 def acme_challenge():
