@@ -28,7 +28,7 @@ WORD_FREQ = {}
 def build_word_freq(corpus=None):
     if corpus is None:
         corpus = open('google-10000-english/google-10000-english-usa.txt', 'r')
-    count = 10000 
+    count = 10000
     for word in corpus:
         WORD_FREQ[word.strip()] = count
         count -= 1
