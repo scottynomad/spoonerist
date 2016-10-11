@@ -12,4 +12,4 @@ setup(name='Spoonerist',
       tests_require=['pytest'],
       url='https://github.com/scottynomad/spoonerist/',
       packages=['spoonerist'],
-     )
+      )

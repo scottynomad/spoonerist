@@ -55,7 +55,7 @@ def test_pairs(test_word, limit_letter, expected, absent):
     for e in absent:
         assert e not in res
 
+
 def test_pair_order_stability():
     g = pairs('stork')
     assert g.__next__() == ("stork", "cologne", "cork", "stallone")
-

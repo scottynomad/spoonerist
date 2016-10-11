@@ -6,7 +6,7 @@ from sortedcontainers import SortedList
 
 # https://en.wikipedia.org/wiki/Arpabet
 
-CONSONANT_PHONES = { 
+CONSONANT_PHONES = {
     'P', 'B', 'T', 'D', 'K', 'G',
     'CH', 'JH',
     'F', 'V', 'TH', 'DH', 'S', 'Z', 'SH', 'ZH', 'HH',
@@ -32,7 +32,6 @@ def build_word_freq(corpus=None):
     for word in corpus:
         WORD_FREQ[word.strip()] = count
         count -= 1
-
 
 
 BY_END = defaultdict(SortedList)
@@ -78,7 +77,7 @@ def split(word):
 
 def rhymes(word):
     """Return all the words sharing everything after the first sound."""
-    _, start, rest, _= split(word)[0]
+    _, start, rest, _ = split(word)[0]
     return (t for t in BY_END[rest] if t[3] != word)
 
 
@@ -101,4 +100,3 @@ def pairs(word, limit_to_letter=None):
                 for m_score, _, _, match in BY_PHONES.get(target_phones, ()):
                     score_all = score + r_score + a_score + m_score
                     yield (word, a_r, rhyme, match)
-

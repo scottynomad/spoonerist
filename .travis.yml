@@ -1,6 +1,5 @@
 language: python
 python:
-  - "2.7"
   - "3.5"
 install:
   - pip install -r requirements.txt
@@ -9,7 +8,5 @@ install:
 script: "if [[ $TEST_PEP8 == '1' ]]; then pep8 --repeat --show-source --exclude=.venv,.tox,dist,docs,build,*.egg .; else python setup.py test; fi"
 matrix:
   include:
-    - python: "2.7"
-      env: TEST_PEP8=1
     - python: "3.5"
       env: TEST_PEP8=1

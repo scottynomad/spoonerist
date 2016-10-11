@@ -19,10 +19,15 @@ class SpoonerismPairs(Resource):
 api.add_resource(SpoonerismPairs, '/<string:word>/pairs')
 
 
-@app.route('/.well-known/acme-challenge/0LpcKiPyeG3ScFONl3gownnvTUZh1ctubzTVaqreyMc',
+key = '0LpcKiPyeG3ScFONl3gownnvTUZh1ctubzTVaqreyMc'
+value = ('0LpcKiPyeG3ScFONl3gownnvTUZh1ctubzTVaqreyMc.0ana0d6lzmt-Y'
+         '-jEARBOXKrIX--I_9V_E7m-pbYIuXA')
+
+
+@app.route('/.well-known/acme-challenge/' + key,
            methods=['GET'])
 def acme_challenge():
-    return '0LpcKiPyeG3ScFONl3gownnvTUZh1ctubzTVaqreyMc.0ana0d6lzmt-Y-jEARBOXKrIX--I_9V_E7m-pbYIuXA'
+    return value
 
 
 if __name__ == '__main__':
