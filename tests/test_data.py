@@ -2,18 +2,12 @@ import pronouncing
 import pytest
 
 
-from spoonerist import (
+from spoonerist.data import (
     alliterates,
-    consonants_except,
     pairs,
     split,
     rhymes
 )
-
-
-def test_consonants_except():
-    assert 'F' not in consonants_except('F')
-    assert 'V' in consonants_except('F')
 
 
 # [u'P ER0 M IH1 T', u'P ER1 M IH2 T']
