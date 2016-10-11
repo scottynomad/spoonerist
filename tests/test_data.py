@@ -57,5 +57,5 @@ def test_pairs(test_word, limit_letter, expected, absent):
 
 def test_pair_order_stability():
     g = pairs('stork')
-    assert g.__next__() == ('stork', 'pix', 'pork', 'sticks')
+    assert g.__next__() == ("stork", "cologne", "cork", "stallone")
 

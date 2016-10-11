@@ -79,18 +79,17 @@ def split(word):
 def rhymes(word):
     """Return all the words sharing everything after the first sound."""
     _, start, rest, _= split(word)[0]
-    return [t for t in BY_END[rest] if t[3] != word]
+    return (t for t in BY_END[rest] if t[3] != word)
 
 
 def alliterates(word):
     """Return all the words sharing the same first sound."""
     _, start, _, _ = split(word)[0]
-    return [t for t in BY_START[start] if t[3] != word]
+    return (t for t in BY_START[start] if t[3] != word)
 
 
 def pairs(word, limit_to_letter=None):
     """Returns a generator of valid spoonerism pairs for the input word."""
-    matches = []
     for score, first, rest, _ in split(word):
         for r_score, r_first, r_rest, rhyme in rhymes(word):
             if limit_to_letter and not rhyme.startswith(limit_to_letter):
@@ -101,7 +100,5 @@ def pairs(word, limit_to_letter=None):
                 target_phones = '{} {}'.format(first, a_r_rest)
                 for m_score, _, _, match in BY_PHONES.get(target_phones, ()):
                     score_all = score + r_score + a_score + m_score
-                    matches.append((score_all, word, a_r, rhyme, match))
-    for group in SortedList(matches):
-        yield group[1:]
+                    yield (word, a_r, rhyme, match)
 
