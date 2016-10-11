@@ -11,7 +11,7 @@ api = Api(app)
 
 class SpoonerismPairs(Resource):
     def get(self, word):
-        count = request.args.get('count', 5)
+        count = int(request.args.get('count', 5))
         shuffle = request.args.get('shuffle', False)
         return list(itertools.islice(pairs(word), count))
 
