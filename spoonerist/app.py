@@ -1,4 +1,5 @@
 from flask import Flask, request
+from flask_cors import CORS
 from flask_restful import Resource, Api
 import itertools
 
@@ -6,6 +7,7 @@ from spoonerist import pairs
 
 
 app = Flask('spoonerist')
+CORS(app)
 api = Api(app)
 
 
