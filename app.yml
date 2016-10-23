@@ -1,0 +1,32 @@
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+handlers:
+- url: .*
+  script: spoonerist.app
+
+libraries:
+- name: Flask
+  version: "0.11.1"
+- name: Flask-Cors
+  version: "3.0.2"
+- name: Flask-RESTful
+  version: "0.3.5"
+- name: jinja2
+  version: "2.8"
+- name: markupsafe
+  version: "0.23"
+- name: pronouncing
+  version: "0.1.2"
+- name: python-dateutil
+  version: "2.5.3"
+- name: pytz
+  version: "2016.7"
+- name: six
+  version: "1.10.0"
+- name: sortedcontainers
+  version: "1.5.3"
+- name: Werkzeug
+  version: "0.11.11"
+
