@@ -20,18 +20,19 @@ first_consonants = '(?:{}(?: {})*)'.format(cons, cons)
 splitter_re = '^(?P<start>{}) (?P<rest>.+)$'.format(first_consonants)
 splitter = re.compile(splitter_re)
 filter_re = re.compile("['\.]")
-
+corpus_re = re.compile("(.+)\W+(\d+)")
 
 WORD_FREQ = {}
 
 
 def build_word_freq(corpus=None):
     if corpus is None:
-        corpus = open('google-10000-english/google-10000-english-usa.txt', 'r')
-    count = 10000
-    for word in corpus:
-        WORD_FREQ[word.strip()] = count
-        count -= 1
+        corpus = open('resources/words.txt', 'r')
+    for line in corpus:
+        match = corpus_re.match(line)
+        word = match.groups()[0]
+        freq = match.groups()[1]
+        WORD_FREQ[word.strip()] = int(freq)
 
 
 BY_END = defaultdict(SortedList)
@@ -48,6 +49,8 @@ def build_db():
             continue
         if filter_re.search(word):
             continue
+        if word not in WORD_FREQ:
+            continue
         match = splitter.match(phones)
         if not match:
             continue
@@ -63,7 +66,10 @@ build_db()
 
 
 def split(word):
-    """Return a list of tuples of (1st consonnts, subsequents phones, word)"""
+    """Return a list of tuples of (rank, 1st consonants, subsequent phones, word.
+    
+    Rank of 0 indicates that the word is not in the word frequency list.
+    """
     word = word.lower()
     phones = pronouncing.phones_for_word(word)
     res = []
@@ -89,14 +95,23 @@ def alliterates(word):
 
 def pairs(word, limit_to_letter=None):
     """Returns a generator of valid spoonerism pairs for the input word."""
-    for score, first, rest, _ in split(word):
-        for r_score, r_first, r_rest, rhyme in rhymes(word):
-            if limit_to_letter and not rhyme.startswith(limit_to_letter):
+    l1_splits = split(word)
+
+    combinations = []
+    for l1 in l1_splits:
+        for r1 in rhymes(l1[-1]):
+            if limit_to_letter and not r1[-1].startswith(limit_to_letter):
                 continue
-            if r_first == first:
+            if l1[1] == r1[1]:
                 continue
-            for a_score, a_r_first, a_r_rest, a_r in alliterates(rhyme):
-                target_phones = '{} {}'.format(first, a_r_rest)
-                for m_score, _, _, match in BY_PHONES.get(target_phones, ()):
-                    score_all = score + r_score + a_score + m_score
-                    yield (word, a_r, rhyme, match)
+            for l2 in alliterates(r1[-1]):
+                target_phones = '{} {}'.format(l1[1], l2[2])
+                r2 = BY_PHONES.get(target_phones)
+                #for r2 in BY_PHONES.get(target_phones, ()):
+                if r2:
+                    r2 = sorted(r2, key=lambda r: r[0])
+                    combinations.append((l1, l2, r1, r2[0]))
+
+    sorted_combinations = sorted(combinations, key=lambda p: p[2][0] + p[1][0] + p[3][0], reverse=True)
+    # TODO Unique
+    return [[w[-1] for w in c] for c in sorted_combinations]

@@ -2,3 +2,8 @@
 
 Tools for spoonerism lovers.
 
+
+## Sources
+
+CMU Pronouncing Dictionary
+Peter Norvig's wordlist:  http://norvig.com/ngrams/count_1w.txt

@@ -21,7 +21,7 @@ def test_split(test_input, expected):
 
 
 @pytest.mark.parametrize('test_input, expected, absent', [
-    ('cheese', ['breeze', 'peas'], ['cheese', 'fleece'])
+    ('cheese', ['peas'], ['cheese', 'fleece'])
 ])
 def test_rhymes(test_input, expected, absent):
     res = [t[3] for t in rhymes(test_input)]
@@ -32,7 +32,7 @@ def test_rhymes(test_input, expected, absent):
 
 
 @pytest.mark.parametrize('test_input, expected, absent', [
-    ('cheese', ['chunk', 'chaff'], ['cheese', 'christ']),
+    ('cheese', ['chancellor', 'chess'], ['cheese', 'christ']),
     ('breeze', [], ['b'])
 ])
 def test_alliterates(test_input, expected, absent):
